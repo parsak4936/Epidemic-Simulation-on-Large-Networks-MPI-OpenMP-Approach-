@@ -1,0 +1,6 @@
+label: cloud
+cores (nproc): 8
+Model name:                              AMD EPYC 7B12
+Thread(s) per core:                      2
+Core(s) per socket:                      4
+Socket(s):                               1

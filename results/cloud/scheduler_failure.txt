@@ -1,0 +1,6 @@
+[worker 1] pretending to fail on task 8, sending no answer
+[master] worker 1 timed out on task 8 (IN-FLIGHT), putting it back to READY
+task scheduler finished. 252 analysis jobs ran on 3 worker process(es).
+jobs completed: 252 | jobs re-enqueued after a worker timed out: 1
+wrote results/timeline.csv (each row is one task run, with start and end times)
+plot it with:  python scripts/plotTimeline.py

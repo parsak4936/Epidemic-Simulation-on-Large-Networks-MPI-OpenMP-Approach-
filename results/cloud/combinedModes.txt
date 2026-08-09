@@ -1,0 +1,15 @@
+network: smallworld, people: 1000000, machine: cloud
+
+ workers    procs   threads     seconds    speedup     comm%
+       1        1         1     1.34917       1.00         0
+       2        1         2     1.06186       1.27        0%
+       2        2         1    0.951153       1.42       16%
+       4        1         4      1.0353       1.30        0%
+       4        2         2    0.841928       1.60       26%
+       4        4         1    0.512652       2.63       29%
+       8        1         8    0.848292       1.59        0%
+       8        2         4     1.03248       1.31       13%
+       8        4         2    0.460281       2.93       22%
+       8        8         1    0.524314       2.57       31%
+
+wrote results/cloud/combinedModes.csv

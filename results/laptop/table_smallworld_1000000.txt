@@ -1,0 +1,13 @@
+
+=== timing comparison (best of the runs in results/timings.csv) ===
+
+network: smallworld, people: 1000000
+  mode             procs  threads     seconds  speedup  efficiency     comm%  imbalance
+  sequential           1        1     2.28102    1.00x        100%        0%       1.00
+  mpi+openmp           1        2     1.44296    1.58x         79%        0%       1.00
+  mpi+openmp           2        1     2.12178    1.08x         54%        7%       1.01
+  mpi+openmp           1        4     0.96584    2.36x         59%        0%       1.00
+  mpi+openmp           4        1     1.65008    1.38x         35%       26%       1.04
+  mpi+openmp           1        8     1.04653    2.18x         27%        0%       1.00
+  mpi+openmp           8        1     2.38439    0.96x         12%       71%       1.04
+

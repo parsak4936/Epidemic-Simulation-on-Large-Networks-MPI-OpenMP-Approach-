@@ -1,0 +1,9 @@
+network: scalefree, people: 500000
+
+procs    part       seconds        comm%    imbalance
+2        block     0.900382     22.8423%        1.073
+2        metis     0.929857     14.2763%      1.00382
+4        block     0.834612     39.9851%      1.06664
+4        metis      1.33304     36.7005%      1.00624
+8        block     0.518739     76.1703%       1.0596
+8        metis     0.893856     74.7744%      1.08857

@@ -1,0 +1,15 @@
+
+=== timing comparison (best of the runs in results/timings.csv) ===
+
+network: scalefree, people: 1000000
+  mode             procs  threads     seconds  speedup  efficiency     comm%  imbalance
+  sequential           1        1     2.09465    1.00x        100%        0%       1.00
+  mpi+openmp           1        2     1.38552    1.51x         76%        0%       1.00
+  mpi+openmp           2        1     1.44913    1.45x         72%       29%       1.11
+  mpi+openmp           1        4     1.06078    1.97x         49%        0%       1.00
+  mpi+openmp           4        1     0.91801    2.28x         57%       44%       1.08
+  mpi+openmp           1        8     0.90174    2.32x         29%        0%       1.00
+  mpi+openmp           8        1     0.98993    2.12x         26%       46%       1.11
+  mpi+openmp           1       16     0.91723    2.28x         14%        0%       1.00
+  mpi+openmp          16        1     1.54211    1.36x          8%       83%       1.54
+

@@ -1,0 +1,9 @@
+network: smallworld, people: 500000
+
+procs    part       seconds        comm%    imbalance
+2        block     0.405237     12.0615%       1.0377
+2        metis     0.414589     12.2146%      1.03135
+4        block     0.199757     17.4368%      1.03331
+4        metis     0.220171      19.251%      1.02713
+8        block      0.14485      24.818%      1.02151
+8        metis      0.19698     26.5074%      1.07772
