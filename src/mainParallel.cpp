@@ -27,16 +27,11 @@
 #include <metis.h>
 #endif
 
-// Work out which process owns each person. Two ways to do it:
-//
-//  block: cut the people into equal contiguous ranges, one per process. Simple, and
-//         for a small world network it splits evenly because contacts are mostly local.
-//  metis: hand the network to METIS, which chooses the split so that the number of
-//         contacts crossing between processes (the edge cut) is small while keeping the
-//         pieces about the same size. That is what the proposal asks for, and it should
-//         help most on a scale free network, where hubs otherwise straddle boundaries.
-//
-// Both fill the same owner array, so the rest of the program does not care which was used.
+// decide which process owns each person.
+// block cuts the people into equal contiguous ranges, which is fine when contacts are
+// mostly local. metis instead picks the split so fewer contacts cross between
+// processes, which helps most on scale free networks where hubs straddle boundaries.
+// both fill the same owner array, so nothing downstream cares which was used.
 static void buildPartition(const Graph& graph, int numberOfProcesses,
                            const std::string& partitioner,
                            std::vector<int>& owner) {
@@ -124,8 +119,8 @@ static void exchangeBorderStates(std::vector<HealthState>& state,
     // nothing has been waited on until now, so all the messages overlapped
     MPI_Waitall(static_cast<int>(pending.size()), pending.data(), MPI_STATUSES_IGNORE);
 
-    // copy the arrived states into the ghosts. this is the only place we touch
-    // people we do not own, and only ever with what their owner just sent.
+    // copy the arrived states into the ghosts, the only place we touch people we
+    // do not own, and only ever with what their owner just sent
     for (int other = 0; other < numberOfProcesses; other = other + 1) {
         for (std::size_t i = 0; i < recvFromRank[other].size(); i = i + 1) {
             state[recvFromRank[other][i]] = static_cast<HealthState>(recvBuffer[other][i]);
@@ -218,6 +213,19 @@ int main(int argc, char** argv) {
         recvFromRank[other].erase(std::unique(recvFromRank[other].begin(), recvFromRank[other].end()),
                                   recvFromRank[other].end());
     }
+
+    // how big is the halo? count the people I have to send and the ghosts I keep.
+    // this is the concrete size of the communication: it is what the edge cut costs.
+    int myBorderPeople = 0;
+    int myGhosts = 0;
+    for (int other = 0; other < numberOfProcesses; other = other + 1) {
+        myBorderPeople = myBorderPeople + static_cast<int>(sendToRank[other].size());
+        myGhosts = myGhosts + static_cast<int>(recvFromRank[other].size());
+    }
+    int totalBorder = 0;
+    int totalGhosts = 0;
+    MPI_Reduce(&myBorderPeople, &totalBorder, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&myGhosts, &totalGhosts, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
 
     SeirParameters parameters;
     parameters.transmissionProbability = 0.05;
@@ -379,6 +387,9 @@ int main(int argc, char** argv) {
         // communication overhead: how much of the work was just swapping states
         double commOverhead = (maxCompute + maxComm > 0.0) ? (maxComm / (maxCompute + maxComm)) : 0.0;
 
+        std::cout << "halo: " << totalGhosts << " ghost copies across all processes ("
+                  << (100.0 * totalGhosts / numberOfNodes) << "% of the people), "
+                  << (totalGhosts * sizeof(int) / 1024) << " KB exchanged per day\n";
         std::cout << "compute: " << maxCompute << " s  |  communication: " << maxComm
                   << " s (" << (commOverhead * 100.0) << "% of the work)"
                   << "  |  load imbalance: " << imbalance << " (1.0 is perfect)\n";
