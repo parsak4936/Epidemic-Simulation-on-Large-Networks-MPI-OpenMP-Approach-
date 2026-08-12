@@ -3,13 +3,13 @@
 
 network: scalefree, people: 1000000
   mode             procs  threads     seconds  speedup  efficiency     comm%  imbalance
-  sequential           1        1     2.09465    1.00x        100%        0%       1.00
-  mpi+openmp           1        2     1.38552    1.51x         76%        0%       1.00
-  mpi+openmp           2        1     1.44913    1.45x         72%       29%       1.11
-  mpi+openmp           1        4     1.06078    1.97x         49%        0%       1.00
-  mpi+openmp           4        1     0.91801    2.28x         57%       44%       1.08
-  mpi+openmp           1        8     0.90174    2.32x         29%        0%       1.00
-  mpi+openmp           8        1     0.98993    2.12x         26%       46%       1.11
-  mpi+openmp           1       16     0.91723    2.28x         14%        0%       1.00
-  mpi+openmp          16        1     1.54211    1.36x          8%       83%       1.54
+  sequential           1        1     2.06887    1.00x        100%        0%       1.00
+  mpi+openmp           1        2     1.44997    1.43x         71%        0%       1.00
+  mpi+openmp           2        1     1.49626    1.38x         69%       32%       1.14
+  mpi+openmp           1        4     1.02170    2.02x         51%        0%       1.00
+  mpi+openmp           4        1     0.94138    2.20x         55%       39%       1.07
+  mpi+openmp           1        8     0.88705    2.33x         29%        0%       1.00
+  mpi+openmp           8        1     0.99661    2.08x         26%       55%       1.14
+  mpi+openmp           1       16     0.84697    2.44x         15%        0%       1.00
+  mpi+openmp          16        1     1.58807    1.30x          8%       81%       1.41
 

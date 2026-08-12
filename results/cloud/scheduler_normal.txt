@@ -1,7 +1,8 @@
 task scheduler finished. 252 analysis jobs ran on 3 worker process(es).
 jobs completed: 252 | jobs re-enqueued after a worker timed out: 0
+people vaccinated by task C (applied the day after it decided): 20000
 wrote results/timeline.csv (each row is one task run, with start and end times)
 plot it with:  python scripts/plotTimeline.py
 wrote results/cloud/timeline.png
-most different algorithms running at the same time: 4 (around t = 0.0093 s)
+most different algorithms running at the same time: 4 (around t = 0.0871 s)
 => different algorithms overlapped in time: this is real task parallelism.

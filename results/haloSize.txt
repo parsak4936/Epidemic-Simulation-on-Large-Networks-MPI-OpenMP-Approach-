@@ -1,0 +1,16 @@
+halo size: how many ghost copies each partitioning produces
+500,000 people, seed 777. The halo depends only on the graph and the
+partitioning, not on the machine, so these numbers hold on either one.
+
+smallworld  block   2 procs : halo: 130444 ghost copies across all processes (26.0888% of the people), 509 KB exchanged per day
+smallworld  block   4 procs : halo: 209681 ghost copies across all processes (41.9362% of the people), 819 KB exchanged per day
+smallworld  block   8 procs : halo: 252926 ghost copies across all processes (50.5852% of the people), 987 KB exchanged per day
+smallworld  metis   2 procs : halo: 126461 ghost copies across all processes (25.2922% of the people), 493 KB exchanged per day
+smallworld  metis   4 procs : halo: 214253 ghost copies across all processes (42.8506% of the people), 836 KB exchanged per day
+smallworld  metis   8 procs : halo: 271812 ghost copies across all processes (54.3624% of the people), 1061 KB exchanged per day
+scalefree   block   2 procs : halo: 440650 ghost copies across all processes (88.13% of the people), 1721 KB exchanged per day
+scalefree   block   4 procs : halo: 981671 ghost copies across all processes (196.334% of the people), 3834 KB exchanged per day
+scalefree   block   8 procs : halo: 1511322 ghost copies across all processes (302.264% of the people), 5903 KB exchanged per day
+scalefree   metis   2 procs : halo: 353529 ghost copies across all processes (70.7058% of the people), 1380 KB exchanged per day
+scalefree   metis   4 procs : halo: 703592 ghost copies across all processes (140.718% of the people), 2748 KB exchanged per day
+scalefree   metis   8 procs : halo: 1015964 ghost copies across all processes (203.193% of the people), 3968 KB exchanged per day

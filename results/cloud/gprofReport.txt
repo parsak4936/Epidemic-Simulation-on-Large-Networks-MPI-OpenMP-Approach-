@@ -3,28 +3,28 @@ Flat profile:
 Each sample counts as 0.01 seconds.
   %   cumulative   self              self     total           
  time   seconds   seconds    calls  ms/call  ms/call  name    
- 90.24      0.74     0.74 60000000     0.00     0.00  nextStateForNode(int, int, Graph const&, std::vector<HealthState, std::allocator<HealthState> > const&, SeirParameters const&)
-  4.88      0.78     0.04        1    40.00    40.00  generateSmallWorldNetwork(int, int, double, unsigned int)
-  2.44      0.80     0.02      121     0.17     0.17  countStates(std::vector<HealthState, std::allocator<HealthState> > const&)
-  1.22      0.81     0.01        2     5.00     5.00  std::vector<int, std::allocator<int> >::_M_fill_assign(unsigned long, int const&)
-  1.22      0.82     0.01        1    10.00    20.00  Graph::fromEdgeList(int, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > const&)
-  0.00      0.82     0.00  3149658     0.00     0.00  std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::operator()()
-  0.00      0.82     0.00   149643     0.00     0.00  loadEdgeListFromFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int&)
-  0.00      0.82     0.00     5048     0.00     0.00  std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::_M_gen_rand()
-  0.00      0.82     0.00       22     0.00     0.00  void std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >::_M_realloc_insert<std::pair<int, int> >(__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, std::pair<int, int>&&)
-  0.00      0.82     0.00       12     0.00     0.00  void std::vector<StateCounts, std::allocator<StateCounts> >::_M_realloc_insert<StateCounts>(__gnu_cxx::__normal_iterator<StateCounts*, std::vector<StateCounts, std::allocator<StateCounts> > >, StateCounts&&)
-  0.00      0.82     0.00        5     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&)
-  0.00      0.82     0.00        3     0.00     0.00  std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >::~vector()
-  0.00      0.82     0.00        2     0.00     0.00  machineName[abi:cxx11]()
-  0.00      0.82     0.00        2     0.00     0.00  std::vector<int, std::allocator<int> >::~vector()
-  0.00      0.82     0.00        2     0.00     0.00  frame_dummy
-  0.00      0.82     0.00        1     0.00     0.00  appendTimingRow(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, RunMeasurement const&)
-  0.00      0.82     0.00        1     0.00     0.00  writeCountsToCsv(std::vector<StateCounts, std::allocator<StateCounts> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
-  0.00      0.82     0.00        1     0.00     0.00  hardwareCoreCount()
-  0.00      0.82     0.00        1     0.00   760.00  runSeirSimulation(Graph const&, SeirParameters const&)
-  0.00      0.82     0.00        1     0.00     0.00  seedInitialInfected(std::vector<HealthState, std::allocator<HealthState> >&, SeirParameters const&)
-  0.00      0.82     0.00        1     0.00     0.00  std::unique_ptr<std::filesystem::__cxx11::path::_List::_Impl, std::filesystem::__cxx11::path::_List::_Impl_deleter>::~unique_ptr()
-  0.00      0.82     0.00        1     0.00     0.00  std::vector<StateCounts, std::allocator<StateCounts> >::~vector()
+ 88.10      0.74     0.74 60000000     0.00     0.00  nextStateForNode(int, int, Graph const&, std::vector<HealthState, std::allocator<HealthState> > const&, SeirParameters const&)
+  5.95      0.79     0.05        1    50.00   790.00  runSeirSimulation(Graph const&, SeirParameters const&)
+  3.57      0.82     0.03        1    30.00    30.00  generateSmallWorldNetwork(int, int, double, unsigned int)
+  1.19      0.83     0.01        2     5.00     5.00  std::vector<int, std::allocator<int> >::_M_fill_assign(unsigned long, int const&)
+  1.19      0.84     0.01        1    10.00    20.00  Graph::fromEdgeList(int, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > const&)
+  0.00      0.84     0.00  3149658     0.00     0.00  std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::operator()()
+  0.00      0.84     0.00   149643     0.00     0.00  loadEdgeListFromFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int&)
+  0.00      0.84     0.00     5048     0.00     0.00  std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::_M_gen_rand()
+  0.00      0.84     0.00      121     0.00     0.00  countStates(std::vector<HealthState, std::allocator<HealthState> > const&)
+  0.00      0.84     0.00       22     0.00     0.00  void std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >::_M_realloc_insert<std::pair<int, int> >(__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, std::pair<int, int>&&)
+  0.00      0.84     0.00       12     0.00     0.00  void std::vector<StateCounts, std::allocator<StateCounts> >::_M_realloc_insert<StateCounts>(__gnu_cxx::__normal_iterator<StateCounts*, std::vector<StateCounts, std::allocator<StateCounts> > >, StateCounts&&)
+  0.00      0.84     0.00        5     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&)
+  0.00      0.84     0.00        3     0.00     0.00  std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >::~vector()
+  0.00      0.84     0.00        2     0.00     0.00  machineName[abi:cxx11]()
+  0.00      0.84     0.00        2     0.00     0.00  std::vector<int, std::allocator<int> >::~vector()
+  0.00      0.84     0.00        2     0.00     0.00  frame_dummy
+  0.00      0.84     0.00        1     0.00     0.00  appendTimingRow(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, RunMeasurement const&)
+  0.00      0.84     0.00        1     0.00     0.00  writeCountsToCsv(std::vector<StateCounts, std::allocator<StateCounts> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+  0.00      0.84     0.00        1     0.00     0.00  hardwareCoreCount()
+  0.00      0.84     0.00        1     0.00     0.00  seedInitialInfected(std::vector<HealthState, std::allocator<HealthState> >&, SeirParameters const&)
+  0.00      0.84     0.00        1     0.00     0.00  std::unique_ptr<std::filesystem::__cxx11::path::_List::_Impl, std::filesystem::__cxx11::path::_List::_Impl_deleter>::~unique_ptr()
+  0.00      0.84     0.00        1     0.00     0.00  std::vector<StateCounts, std::allocator<StateCounts> >::~vector()
 
  %         the percentage of the total running time of the
 time       program used by this function.
@@ -62,17 +62,17 @@ notice and this notice are preserved.
 		     Call graph (explanation follows)
 
 
-granularity: each sample hit covers 4 byte(s) for 1.22% of 0.82 seconds
+granularity: each sample hit covers 4 byte(s) for 1.19% of 0.84 seconds
 
 index % time    self  children    called     name
                                                  <spontaneous>
-[1]    100.0    0.00    0.82                 main [1]
-                0.00    0.76       1/1           runSeirSimulation(Graph const&, SeirParameters const&) [2]
-                0.04    0.00       1/1           generateSmallWorldNetwork(int, int, double, unsigned int) [4]
-                0.01    0.01       1/1           Graph::fromEdgeList(int, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > const&) [6]
+[1]    100.0    0.00    0.84                 main [1]
+                0.05    0.74       1/1           runSeirSimulation(Graph const&, SeirParameters const&) [2]
+                0.03    0.00       1/1           generateSmallWorldNetwork(int, int, double, unsigned int) [4]
+                0.01    0.01       1/1           Graph::fromEdgeList(int, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > const&) [5]
                 0.00    0.00       5/5           std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [19]
                 0.00    0.00       3/3           std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >::~vector() [20]
-                0.00    0.00       2/2           frame_dummy [8]
+                0.00    0.00       2/2           frame_dummy [7]
                 0.00    0.00       2/2           std::vector<int, std::allocator<int> >::~vector() [22]
                 0.00    0.00       1/1           std::unique_ptr<std::filesystem::__cxx11::path::_List::_Impl, std::filesystem::__cxx11::path::_List::_Impl_deleter>::~unique_ptr() [27]
                 0.00    0.00       1/1           writeCountsToCsv(std::vector<StateCounts, std::allocator<StateCounts> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [24]
@@ -81,46 +81,46 @@ index % time    self  children    called     name
                 0.00    0.00       1/1           appendTimingRow(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, RunMeasurement const&) [23]
                 0.00    0.00       1/1           std::vector<StateCounts, std::allocator<StateCounts> >::~vector() [28]
 -----------------------------------------------
-                0.00    0.76       1/1           main [1]
-[2]     92.7    0.00    0.76       1         runSeirSimulation(Graph const&, SeirParameters const&) [2]
+                0.05    0.74       1/1           main [1]
+[2]     94.0    0.05    0.74       1         runSeirSimulation(Graph const&, SeirParameters const&) [2]
                 0.74    0.00 60000000/60000000     nextStateForNode(int, int, Graph const&, std::vector<HealthState, std::allocator<HealthState> > const&, SeirParameters const&) [3]
-                0.02    0.00     121/121         countStates(std::vector<HealthState, std::allocator<HealthState> > const&) [5]
+                0.00    0.00     121/121         countStates(std::vector<HealthState, std::allocator<HealthState> > const&) [16]
                 0.00    0.00       8/12          void std::vector<StateCounts, std::allocator<StateCounts> >::_M_realloc_insert<StateCounts>(__gnu_cxx::__normal_iterator<StateCounts*, std::vector<StateCounts, std::allocator<StateCounts> > >, StateCounts&&) [18]
                 0.00    0.00       1/1           seedInitialInfected(std::vector<HealthState, std::allocator<HealthState> >&, SeirParameters const&) [26]
 -----------------------------------------------
                 0.74    0.00 60000000/60000000     runSeirSimulation(Graph const&, SeirParameters const&) [2]
-[3]     90.2    0.74    0.00 60000000         nextStateForNode(int, int, Graph const&, std::vector<HealthState, std::allocator<HealthState> > const&, SeirParameters const&) [3]
+[3]     88.1    0.74    0.00 60000000         nextStateForNode(int, int, Graph const&, std::vector<HealthState, std::allocator<HealthState> > const&, SeirParameters const&) [3]
 -----------------------------------------------
-                0.04    0.00       1/1           main [1]
-[4]      4.9    0.04    0.00       1         generateSmallWorldNetwork(int, int, double, unsigned int) [4]
-                0.00    0.00 3000000/3149658     std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::operator()() [14]
-                0.00    0.00  149643/149643      loadEdgeListFromFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int&) [15]
+                0.03    0.00       1/1           main [1]
+[4]      3.6    0.03    0.00       1         generateSmallWorldNetwork(int, int, double, unsigned int) [4]
+                0.00    0.00 3000000/3149658     std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::operator()() [13]
+                0.00    0.00  149643/149643      loadEdgeListFromFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int&) [14]
                 0.00    0.00      22/22          void std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >::_M_realloc_insert<std::pair<int, int> >(__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, std::pair<int, int>&&) [17]
 -----------------------------------------------
-                0.02    0.00     121/121         runSeirSimulation(Graph const&, SeirParameters const&) [2]
-[5]      2.4    0.02    0.00     121         countStates(std::vector<HealthState, std::allocator<HealthState> > const&) [5]
------------------------------------------------
                 0.01    0.01       1/1           main [1]
-[6]      2.4    0.01    0.01       1         Graph::fromEdgeList(int, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > const&) [6]
-                0.01    0.00       2/2           std::vector<int, std::allocator<int> >::_M_fill_assign(unsigned long, int const&) [7]
+[5]      2.4    0.01    0.01       1         Graph::fromEdgeList(int, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > const&) [5]
+                0.01    0.00       2/2           std::vector<int, std::allocator<int> >::_M_fill_assign(unsigned long, int const&) [6]
 -----------------------------------------------
-                0.01    0.00       2/2           Graph::fromEdgeList(int, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > const&) [6]
-[7]      1.2    0.01    0.00       2         std::vector<int, std::allocator<int> >::_M_fill_assign(unsigned long, int const&) [7]
+                0.01    0.00       2/2           Graph::fromEdgeList(int, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > const&) [5]
+[6]      1.2    0.01    0.00       2         std::vector<int, std::allocator<int> >::_M_fill_assign(unsigned long, int const&) [6]
 -----------------------------------------------
                 0.00    0.00       2/2           main [1]
-[8]      0.0    0.00    0.00       2         frame_dummy [8]
+[7]      0.0    0.00    0.00       2         frame_dummy [7]
 -----------------------------------------------
-                0.00    0.00  149658/3149658     loadEdgeListFromFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int&) [15]
+                0.00    0.00  149658/3149658     loadEdgeListFromFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int&) [14]
                 0.00    0.00 3000000/3149658     generateSmallWorldNetwork(int, int, double, unsigned int) [4]
-[14]     0.0    0.00    0.00 3149658         std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::operator()() [14]
-                0.00    0.00    5048/5048        std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::_M_gen_rand() [16]
+[13]     0.0    0.00    0.00 3149658         std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::operator()() [13]
+                0.00    0.00    5048/5048        std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::_M_gen_rand() [15]
 -----------------------------------------------
                 0.00    0.00  149643/149643      generateSmallWorldNetwork(int, int, double, unsigned int) [4]
-[15]     0.0    0.00    0.00  149643         loadEdgeListFromFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int&) [15]
-                0.00    0.00  149658/3149658     std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::operator()() [14]
+[14]     0.0    0.00    0.00  149643         loadEdgeListFromFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int&) [14]
+                0.00    0.00  149658/3149658     std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::operator()() [13]
 -----------------------------------------------
-                0.00    0.00    5048/5048        std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::operator()() [14]
-[16]     0.0    0.00    0.00    5048         std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::_M_gen_rand() [16]
+                0.00    0.00    5048/5048        std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::operator()() [13]
+[15]     0.0    0.00    0.00    5048         std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::_M_gen_rand() [15]
+-----------------------------------------------
+                0.00    0.00     121/121         runSeirSimulation(Graph const&, SeirParameters const&) [2]
+[16]     0.0    0.00    0.00     121         countStates(std::vector<HealthState, std::allocator<HealthState> > const&) [16]
 -----------------------------------------------
                 0.00    0.00      22/22          generateSmallWorldNetwork(int, int, double, unsigned int) [4]
 [17]     0.0    0.00    0.00      22         void std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >::_M_realloc_insert<std::pair<int, int> >(__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, std::pair<int, int>&&) [17]
@@ -256,10 +256,10 @@ notice and this notice are preserved.
 Index by function name
 
   [21] machineName[abi:cxx11]() [4] generateSmallWorldNetwork(int, int, double, unsigned int) [17] void std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >::_M_realloc_insert<std::pair<int, int> >(__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, std::pair<int, int>&&)
-  [23] appendTimingRow(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, RunMeasurement const&) [5] countStates(std::vector<HealthState, std::allocator<HealthState> > const&) [20] std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >::~vector()
-   [3] nextStateForNode(int, int, Graph const&, std::vector<HealthState, std::allocator<HealthState> > const&, SeirParameters const&) [6] Graph::fromEdgeList(int, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > const&) [7] std::vector<int, std::allocator<int> >::_M_fill_assign(unsigned long, int const&)
+  [23] appendTimingRow(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, RunMeasurement const&) [16] countStates(std::vector<HealthState, std::allocator<HealthState> > const&) [20] std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >::~vector()
+   [3] nextStateForNode(int, int, Graph const&, std::vector<HealthState, std::allocator<HealthState> > const&, SeirParameters const&) [5] Graph::fromEdgeList(int, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > const&) [6] std::vector<int, std::allocator<int> >::_M_fill_assign(unsigned long, int const&)
   [24] writeCountsToCsv(std::vector<StateCounts, std::allocator<StateCounts> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [27] std::unique_ptr<std::filesystem::__cxx11::path::_List::_Impl, std::filesystem::__cxx11::path::_List::_Impl_deleter>::~unique_ptr() [22] std::vector<int, std::allocator<int> >::~vector()
-  [25] hardwareCoreCount()    [16] std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::_M_gen_rand() [19] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&)
-   [2] runSeirSimulation(Graph const&, SeirParameters const&) [14] std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::operator()() [8] frame_dummy
+  [25] hardwareCoreCount()    [15] std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::_M_gen_rand() [19] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&)
+   [2] runSeirSimulation(Graph const&, SeirParameters const&) [13] std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::operator()() [7] frame_dummy
   [26] seedInitialInfected(std::vector<HealthState, std::allocator<HealthState> >&, SeirParameters const&) [18] void std::vector<StateCounts, std::allocator<StateCounts> >::_M_realloc_insert<StateCounts>(__gnu_cxx::__normal_iterator<StateCounts*, std::vector<StateCounts, std::allocator<StateCounts> > >, StateCounts&&)
-  [15] loadEdgeListFromFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int&) [28] std::vector<StateCounts, std::allocator<StateCounts> >::~vector()
+  [14] loadEdgeListFromFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int&) [28] std::vector<StateCounts, std::allocator<StateCounts> >::~vector()

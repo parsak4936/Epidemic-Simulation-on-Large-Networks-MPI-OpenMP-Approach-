@@ -1,0 +1,17 @@
+task,threads,seconds,check
+A spread,1,0.00572305,138
+A spread,2,0.0060697,138
+A spread,4,0.00328382,138
+A spread,8,0.00232262,138
+B tracing,1,0.00037426,51
+B tracing,2,0.00036047,51
+B tracing,4,0.00053539,51
+B tracing,8,0.00055386,51
+C targeting,1,0.210387,5116595
+C targeting,2,0.180497,5116595
+C targeting,4,0.132354,5116595
+C targeting,8,0.099569,5116595
+D clustering,1,0.000621321,3000001
+D clustering,2,0.00061528,3000001
+D clustering,4,0.00061674,3000001
+D clustering,8,0.00059218,3000001

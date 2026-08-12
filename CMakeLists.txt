@@ -18,6 +18,24 @@ add_executable(sequentialSimulation
     src/seirModel.cpp src/measurement.cpp)
 target_include_directories(sequentialSimulation PRIVATE src)
 
+# measures the degree distribution of the generated networks
+add_executable(degreeStats
+    src/degreeStats.cpp
+    src/graph.cpp
+    src/networkGenerators.cpp)
+target_include_directories(degreeStats PRIVATE src)
+
+# the intervention experiment: the same epidemic with task C vaccinating the most central
+add_executable(responseSimulation
+    src/mainResponse.cpp
+    src/graph.cpp
+    src/networkGenerators.cpp
+    src/seirModel.cpp
+    src/analysisTasks.cpp
+    src/measurement.cpp)
+target_include_directories(responseSimulation PRIVATE src)
+target_link_libraries(responseSimulation PRIVATE OpenMP::OpenMP_CXX)
+
 # the same epidemic split across processes and threads
 add_executable(parallelSimulation
     src/mainParallel.cpp src/graph.cpp src/networkGenerators.cpp
