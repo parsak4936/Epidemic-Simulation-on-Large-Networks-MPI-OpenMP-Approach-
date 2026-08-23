@@ -1,6 +1,6 @@
-// phase 3a driver: run the WHOLE epidemic response system in one process, so we
+// run the WHOLE epidemic response system in one process, so we
 // can see all four operations working together before we make them run at the
-// same time on different processes (that is phase 3b).
+// same time on different processes 
 //
 // each day we run:
 //   task A  spread dynamics      (who gets infected next)
