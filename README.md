@@ -169,6 +169,27 @@ Reproduce it with:
 bash scripts/runGrid.sh 1000000 smallworld 777 <label> 7
 ```
 
+**The same grid on a scale free network**, where the hubs make the boundaries expensive. Best of
+each approach, 1 million people, block partition, median of seven runs:
+
+| approach | small world | scale free |
+|----------|------------:|-----------:|
+| pure OpenMP | 1.85x | **2.50x** |
+| pure MPI | 2.64x | 2.08x |
+| hybrid | **3.12x** | 2.41x |
+
+The ranking moves a second time, and now on the same machine. Threads barely notice the change
+because they share one copy of the network and send nothing; everything holding more than one
+process pays, because a scale free network of the same size needs 3.38x as many ghost copies.
+At eight workers the hybrid split is still ahead of both pure ones at that worker count (2.41x
+against 2.34x and 1.99x), so the case for both mechanisms holds; what it loses is the outright
+win, because 1x16 keeps improving while every configuration with processes is already past 40%
+communication. The best split depends on the machine and on the network together.
+
+```bash
+bash scripts/runGrid.sh 1000000 scalefree 777 <label> 7
+```
+
 **Strong scaling on the cloud machine** (varying one mechanism at a time). These rows come
 from the same seven runs as the table above, so the two cannot disagree.
 
@@ -266,6 +287,16 @@ scripts/    four scripts, described below
 results/    the raw output behind every table in the report
 ```
 
+The result folders, since there are several:
+
+| folder | machine | network |
+|--------|---------|---------|
+| `cloud/`     | cloud VM, e2-standard-8 | small world |
+| `laptop/`    | laptop, 2 cores         | small world |
+| `laptopSF/`  | laptop, 2 cores         | scale free |
+| `cloud2/`    | a second cloud VM of the same type | small world, the reproducibility check |
+| `cloud2SF/`  | that second cloud VM    | scale free |
+
 ## Reproducing the numbers
 
 There are four scripts. Two run experiments, two turn the output into numbers and charts.
@@ -286,10 +317,13 @@ that produced them rather than taken on trust:
 
 | what the report shows | produced by | raw output |
 |---|---|---|
-| the process/thread grid, and strong scaling | `runGrid.sh` | `results/<machine>/combinedModesRaw.csv` |
-| the head to head test and its p values | `runGrid.sh confirm` | `results/<machine>/confirmRaw.csv` |
+| the process/thread grid, small world | `runGrid.sh 1000000 smallworld 777 <label> 7` | `results/cloud/`, `results/laptop/combinedModesRaw.csv` |
+| the same grid on a scale free network | `runGrid.sh 1000000 scalefree 777 <label> 7` | `results/cloud2SF/`, `results/laptopSF/combinedModesRaw.csv` |
+| the reproducibility check on a second cloud instance | `runGrid.sh 1000000 smallworld 777 cloud2 7` | `results/cloud2/combinedModesRaw.csv` |
+| the head to head test and its p values | `analyse.py confirm <rawCsv>` | recomputed from `results/cloud/combinedModesRaw.csv`, the same runs as the row above |
 | ghost copies per partitioner | `measure.sh halo` | `results/haloSize.txt` |
-| block against METIS | `measure.sh metis` | `results/<machine>/partitioners_scalefree.txt` |
+| block against METIS, share and balance | `measure.sh metis` | `results/<machine>/partitioners_scalefree.txt` |
+| block against METIS, timings over five repeats | `parallelSimulation ... block\|metis` | `results/cloud2SF/metisRepeats.txt` |
 | scale free strong scaling | `measure.sh` (earlier sweep) | `results/<machine>/table_scalefree_1000000.txt` |
 | weak scaling | `measure.sh weak` | `results/<machine>/weakTimings.csv` |
 | each task on its own threads | `build/taskBenchmark` | `results/<machine>/taskThreads.csv` |

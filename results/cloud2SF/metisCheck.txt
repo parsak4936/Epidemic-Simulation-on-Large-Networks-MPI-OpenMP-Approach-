@@ -1,0 +1,13 @@
+block vs METIS on the scale free network, 1M people, seed 777, cloud (e2-standard-8).
+Single run per row, not a median. Recorded from the terminal, kept here so the numbers
+have a file behind them.
+
+split  partition   seconds   comm% of the work
+1x8    block       0.907306   0.014
+1x8    metis       0.866359   0.027
+8x1    block       0.938786  47.318
+8x1    metis       1.584760  37.775
+4x2    block       0.901366  47.262
+4x2    metis       0.815682  36.724
+
+sequential baseline for this machine (from combinedModes.txt): 2.139 s

@@ -1,0 +1,34 @@
+
+cloud2SF: median of 7 runs per configuration, sequential baseline 2.139 s
+
+workers   split approach         median     min     max  spread  speedup  comm%
+--------------------------------------------------------------------------------
+      1   1x1   sequential        2.139   2.081   2.184      5%    1.00x     0%
+
+      2   1x2   pure OpenMP       1.519   1.428   1.561      9%    1.41x     0%
+      2   2x1   pure MPI          1.556   1.479   1.622     10%    1.37x    25%
+
+      4   1x4   pure OpenMP       1.033   0.994   1.055      6%    2.07x     0%
+      4   2x2   hybrid            1.129   1.068   1.162      9%    1.90x    29%
+      4   4x1   pure MPI          1.027   0.928   1.092     18%    2.08x    40%
+
+      8   1x8   pure OpenMP       0.913   0.895   0.933      4%    2.34x     0%
+      8   2x4   hybrid            1.009   0.919   1.094     19%    2.12x    31%
+      8   4x2   hybrid            0.887   0.850   0.943     11%    2.41x    46%
+      8   8x1   pure MPI          1.073   0.965   1.193     24%    1.99x    46%
+
+     16   1x16  pure OpenMP       0.854   0.829   0.879      6%    2.50x     0%
+     16   2x8   hybrid            2.153   2.107   2.206      5%    0.99x    48%
+     16   4x4   hybrid            2.233   2.187   2.335      7%    0.96x    58%
+     16   8x2   hybrid            2.102   2.027   2.188      8%    1.02x    63%
+     16  16x1   pure MPI          1.665   1.504   1.682     12%    1.28x    75%
+
+================================================================================
+  best pure MPI        2.08x  (4x1, median 1.027 s, range 0.928-1.092)
+  best pure OpenMP     2.50x  (1x16, median 0.854 s, range 0.829-0.879)
+  best hybrid          2.41x  (4x2, median 0.887 s, range 0.850-0.943)
+
+  the hybrid split 4x2 is -4% faster than the best pure one (1x16)
+  WARNING: the ranges overlap (0.850-0.943 against 0.829-0.879), so this margin is not separated from run to run variation. Report it with the spread, or repeat more.
+
+wrote results/cloud2SF/combinedModes.csv, combinedModesTable.tex, strongScalingTable.tex

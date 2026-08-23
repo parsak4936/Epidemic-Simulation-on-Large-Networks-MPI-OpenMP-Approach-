@@ -1,0 +1,34 @@
+
+laptopSF: median of 7 runs per configuration, sequential baseline 5.268 s
+
+workers   split approach         median     min     max  spread  speedup  comm%
+--------------------------------------------------------------------------------
+      1   1x1   sequential        5.268   4.223   7.584     80%    1.00x     0%
+
+      2   1x2   OpenMP alone      3.520   3.225   5.141     59%    1.50x     0%
+      2   2x1   MPI alone         4.518   4.362   5.058     16%    1.17x    21%
+
+      4   1x4   OpenMP alone      2.606   2.273   3.048     34%    2.02x     0%
+      4   2x2   combined          3.574   3.347   3.805     14%    1.47x    25%
+      4   4x1   MPI alone         5.751   4.838   6.565     36%    0.92x    33%
+
+      8   1x8   OpenMP alone      2.299   2.125   3.030     43%    2.29x     0%
+      8   2x4   combined          3.877   3.295   3.959     20%    1.36x    21%
+      8   4x2   combined          5.764   5.286   8.270     56%    0.91x    32%
+      8   8x1   MPI alone         7.756   6.887   9.470     38%    0.68x    71%
+
+     16   1x16  OpenMP alone      2.300   1.948   2.445     26%    2.29x     0%
+     16   2x8   combined          3.503   3.033   3.811     26%    1.50x    20%
+     16   4x4   combined          6.054   5.836   6.965     19%    0.87x    31%
+     16   8x2   combined          7.691   7.097  10.269     45%    0.68x    52%
+     16  16x1   MPI alone        11.983  10.595  13.784     30%    0.44x    85%
+
+================================================================================
+  best MPI alone       1.17x  (2x1, median 4.518 s, range 4.362-5.058)
+  best OpenMP alone    2.29x  (1x8, median 2.299 s, range 2.125-3.030)
+  best combined        1.50x  (2x8, median 3.503 s, range 3.033-3.811)
+
+  the mixed configuration 2x8 is -34% faster than the best single-mechanism one (1x8)
+  WARNING: the ranges overlap (3.033-3.811 against 2.125-3.030), so this margin is not separated from run to run variation. Report it with the spread, or repeat more.
+
+wrote results/laptopSF/combinedModes.csv, combinedModesTable.tex, strongScalingTable.tex
