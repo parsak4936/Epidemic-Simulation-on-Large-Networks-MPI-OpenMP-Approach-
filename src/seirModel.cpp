@@ -81,7 +81,7 @@ HealthState nextStateForNode(int node, int step, const Graph& graph,
     return state;   // recovered stays recovered
 }
 
-// how many people are in each state right now
+
 static StateCounts countStates(const std::vector<HealthState>& states) {
     StateCounts counts{0, 0, 0, 0};
     for (HealthState state : states) {

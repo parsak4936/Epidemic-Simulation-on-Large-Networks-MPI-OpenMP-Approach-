@@ -1,4 +1,4 @@
-// Measures each of the four tasks on its own, at several thread counts, so we can
+// measures each of the four tasks on its own, at several thread counts, so we can
 // show that every task is data parallel inside (not just the spread). It also
 // checks that the answer does not change with the thread count, which is what makes
 // the parallel versions trustworthy.
@@ -44,7 +44,7 @@ int main(int argc, char** argv) {
     parameters.initialInfectedCount = 5;
     parameters.randomSeed = randomSeed;
 
-    // run the epidemic forward a while so there is a realistic mix of states to analyse
+    // run the epidemic 
     std::vector<HealthState> state(numberOfNodes, HealthState::susceptible);
     seedInitialInfected(state, parameters);
     for (int step = 0; step < 60; step = step + 1) {
@@ -109,8 +109,7 @@ int main(int argc, char** argv) {
         std::cout << "\n";
     }
 
-    std::cout << "wrote results/taskThreads.csv\n";
-    std::cout << "the answer check column must be identical down each task's rows,\n";
-    std::cout << "which shows the threaded versions give the same result.\n";
+    std::cout << "results/taskThreads.csv\n";
+
     return 0;
 }

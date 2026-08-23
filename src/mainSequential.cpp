@@ -1,4 +1,4 @@
-// phase 1 driver: build a contact network, run the sequential seir simulation,
+// build a contact network, run the sequential seir simulation,
 // and save the epidemic curve to a csv file we can plot later.
 //
 // usage:  ./sequentialSimulation [numberOfNodes] [networkType] [randomSeed]
@@ -23,7 +23,7 @@ int main(int argc, char** argv) {
     if (argc >= 3) networkType = argv[2];
     if (argc >= 4) randomSeed = static_cast<unsigned int>(std::stoul(argv[3]));
 
-    // 1. build the contact network
+    //contact network
     EdgeList edges;
     if (networkType == "smallworld") {
         edges = generateSmallWorldNetwork(numberOfNodes, 6, 0.1, randomSeed);
@@ -34,10 +34,10 @@ int main(int argc, char** argv) {
     Graph graph = Graph::fromEdgeList(numberOfNodes, edges);
 
     std::cout << "network type: " << networkType
-              << " | nodes: " << graph.numberOfNodes
-              << " | edges: " << edges.size() << "\n";
+              << " , nodes: " << graph.numberOfNodes
+              << " , edges: " << edges.size() << "\n";
 
-    // 2. pick the epidemic parameters
+    //epidemic parameters
     SeirParameters parameters;
     parameters.transmissionProbability = 0.05;
     parameters.incubationProbability = 0.20;
@@ -46,30 +46,28 @@ int main(int argc, char** argv) {
     parameters.initialInfectedCount = 5;
     parameters.randomSeed = randomSeed;
 
-    // 3. run the simulation, timing just the simulation part with a wall clock
+    //run the simulation
     auto startTime = std::chrono::steady_clock::now();
     std::vector<StateCounts> history = runSeirSimulation(graph, parameters);
     auto endTime = std::chrono::steady_clock::now();
     double elapsedSeconds = std::chrono::duration<double>(endTime - startTime).count();
 
-    // 4. save the curve and print a short summary
     std::filesystem::create_directories("results");
     std::string outputFile = "results/epidemicCurve.csv";
     writeCountsToCsv(history, outputFile);
 
     StateCounts firstStep = history.front();
     StateCounts lastStep = history.back();
-    std::cout << "start  -> infectious: " << firstStep.infectious
+    std::cout << "start  - infectious: " << firstStep.infectious
               << ", susceptible: " << firstStep.susceptible << "\n";
-    std::cout << "finish -> recovered: " << lastStep.recovered
+    std::cout << "finish - recovered: " << lastStep.recovered
               << ", still susceptible: " << lastStep.susceptible << "\n";
     std::cout << "wrote " << outputFile << " (" << history.size() << " rows)\n";
 
-    // 5. report and record the timing + hardware, so we can compare runs later
     std::cout << "simulation time: " << elapsedSeconds << " s"
-              << "  |  mode: sequential (1 process, 1 thread)"
-              << "  |  cores on machine: " << hardwareCoreCount()
-              << "  |  machine: " << machineName() << "\n";
+              << "  ,  mode: sequential (1 process, 1 thread)"
+              << "  ,  cores on machine: " << hardwareCoreCount()
+              << "  ,  machine: " << machineName() << "\n";
 
     RunMeasurement measurement;
     measurement.label = "sequential";
@@ -82,6 +80,5 @@ int main(int argc, char** argv) {
     measurement.commSeconds = 0.0;                // one process, nothing to exchange
     measurement.imbalance = 1.0;                  // one process, perfectly balanced
     appendTimingRow("results/timings.csv", measurement);
-    std::cout << "recorded this run in results/timings.csv\n";
     return 0;
 }

@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
     parameters.initialInfectedCount = 5;
     parameters.randomSeed = randomSeed;
 
-    // how the analysis tasks are configured
+   
     const int tracingDepth = 2;               // task B: trace 2 hops back
     const int centralityIterations = 20;      // task C: pagerank rounds
     const int interventionInterval = 20;      // task C runs every 20 days
@@ -108,8 +108,8 @@ int main(int argc, char** argv) {
         if (currentState[node] == HealthState::recovered) finalInfectedEver = finalInfectedEver + 1;
     }
 
-    std::cout << "network: " << networkType << " | nodes: " << numberOfNodes
-              << " | edges: " << edges.size() << "\n";
+    std::cout << "network: " << networkType << " , nodes: " << numberOfNodes
+              << " , edges: " << edges.size() << "\n";
     std::cout << "ran all four tasks for " << parameters.numberOfSteps << " days\n";
     std::cout << "total vaccinated by task C: " << totalVaccinated << "\n";
     std::cout << "recovered or vaccinated at the end: " << finalInfectedEver << "\n";

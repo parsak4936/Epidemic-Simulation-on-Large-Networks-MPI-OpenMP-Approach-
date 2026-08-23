@@ -1,14 +1,12 @@
-// phase 2 driver, the PARALLEL epidemic simulation.
-//
+// parallel  epidemic simulation.
 // two levels of parallelism:
-//   mpi    splits the people across processes (each process updates its own slice)
-//   openmp threads the per person work inside each process
-//
+// mpi    splits the people across processes (each process updates its own slice)
+// openmp threads the per person work inside each process
 // every process builds the same network (same seed) and updates only the slice of
 // people it owns. people on the border of a slice have neighbors owned by another
 // process, so each day the processes swap the health states of those border people
-// (the "ghost" exchange) using non blocking sends and receives.
-//
+// the ghost exchange using non blocking sends and receives.
+
 // usage:  mpiexec -n <processes> ./parallelSimulation [numberOfNodes] [networkType] [seed]
 #include "graph.h"
 #include "networkGenerators.h"
@@ -58,28 +56,20 @@ static void buildPartition(const Graph& graph, int numberOfProcesses,
             }
             return;
         }
-        std::cerr << "warning: METIS failed, falling back to the block partition\n";
+        std::cerr << "warning: METIS failed\n";
 #else
-        std::cerr << "warning: this build has no METIS, using the block partition\n";
+        std::cerr << "warning: this build has no METIS\n";
 #endif
     }
 
-    // block partition (also the fallback)
+    // block partition 
     for (int node = 0; node < numberOfNodes; node = node + 1) {
         long long rank = static_cast<long long>(node) * numberOfProcesses / numberOfNodes;
         owner[node] = static_cast<int>(rank);
     }
 }
 
-// the ghost exchange, also called the halo exchange.
-// if one of my people has a neighbour owned by another process, I cannot see that
-// neighbour's state, so I keep a local copy of it and refresh it once a day. those
-// copies are the ghosts.
-//   sendToRank[o]    my people that process o needs a copy of
-//   recvFromRank[o]  process o's people that I need a copy of
-// both sides built the lists in the same order, so only states travel, not names.
-// receives are posted before sends and we wait once at the end, so everything
-// overlaps instead of the processes taking turns.
+
 static void exchangeBorderStates(std::vector<HealthState>& state,
                                  const std::vector<std::vector<int>>& sendToRank,
                                  const std::vector<std::vector<int>>& recvFromRank,
@@ -102,7 +92,7 @@ static void exchangeBorderStates(std::vector<HealthState>& state,
         }
     }
 
-    // pack my border people into one contiguous block and send it
+   
     for (int other = 0; other < numberOfProcesses; other = other + 1) {
         if (!sendToRank[other].empty()) {
             sendBuffer[other].resize(sendToRank[other].size());
@@ -151,7 +141,7 @@ int main(int argc, char** argv) {
     int numberOfNodes = 100000;
     std::string networkType = "scalefree";
     unsigned int randomSeed = 12345;
-    std::string partitioner = "block";   // "block" or "metis"
+    std::string partitioner = "block";   // block or metis
     if (argc >= 2) numberOfNodes = std::stoi(argv[1]);
     if (argc >= 3) networkType = argv[2];
     if (argc >= 4) randomSeed = static_cast<unsigned int>(std::stoul(argv[3]));
@@ -160,7 +150,7 @@ int main(int argc, char** argv) {
         if (option == "metis" || option == "block") partitioner = option;
     }
 
-    // every process builds the SAME network from the same seed, so they all agree
+   
     EdgeList edges;
     if (networkType == "smallworld") {
         edges = generateSmallWorldNetwork(numberOfNodes, 6, 0.1, randomSeed);
@@ -180,16 +170,6 @@ int main(int argc, char** argv) {
         if (owner[node] == myRank) myNodes.push_back(node);
     }
 
-    // ---- work out who needs to talk to whom -----------------------------------
-    // Done ONCE, before the timing starts, because the network never changes: only
-    // the health states do. So we pay this cost once and then reuse the pattern for
-    // all 120 days.
-    //
-    // The rule is simple: walk over my own people; for every neighbour that some
-    // OTHER process owns, I need a ghost of that neighbour (so add it to my receive
-    // list), and that process needs a ghost of my person (so add mine to my send
-    // list). Duplicates are removed afterwards, because a popular person may be the
-    // neighbour of many of my people but only needs sending once.
     std::vector<std::vector<int>> sendToRank(numberOfProcesses);
     std::vector<std::vector<int>> recvFromRank(numberOfProcesses);
     for (int node : myNodes) {
@@ -214,8 +194,8 @@ int main(int argc, char** argv) {
                                   recvFromRank[other].end());
     }
 
-    // how big is the halo? count the people I have to send and the ghosts I keep.
-    // this is the concrete size of the communication: it is what the edge cut costs.
+    // count the people I have to send and the ghosts I keep.
+    // this is the concrete size of the communication, it is what the edge cut costs.
     int myBorderPeople = 0;
     int myGhosts = 0;
     for (int other = 0; other < numberOfProcesses; other = other + 1) {
@@ -261,31 +241,14 @@ int main(int argc, char** argv) {
     double computeAccum = 0.0;
     double commAccum = 0.0;
 
-    // ==== THE MAIN LOOP =======================================================
-    // Each day has exactly two phases, and we time them separately so we can say
-    // how much of the run was real work and how much was just talking:
-    //
-    //   1. COMPUTE      update my own people (threads split this)
+    // the main loop.
+    //   1. COMPUTE      update my own people 
     //   2. COMMUNICATE  swap border states with the neighbouring processes
-    //
     // The ratio between those two is the "communication overhead" reported at the
     // end, and it is what explains why adding more processes eventually stops
-    // helping: the compute shrinks as it is divided up, but the talking grows.
-    // ==========================================================================
     for (int step = 0; step < parameters.numberOfSteps; step = step + 1) {
-        // ---- compute part ----
+        //compute part
         auto computeStart = std::chrono::steady_clock::now();
-        // work out the new state of each of my people, reading the current states.
-        // openmp shares this loop across threads. each person writes its own slot,
-        // so the threads never clash.
-        // THE HOT LOOP. This one line of pragma is where the data parallelism lives:
-        // MPI already gave this process its own list of people (myNodes), and OpenMP
-        // now splits THAT list across the threads. So with 4 processes and 2 threads
-        // each, the million people are being updated by 8 workers at once.
-        //
-        // It is safe because nextStateForNode only READS the shared state and each
-        // thread writes to its own slot i. schedule(static) because every person
-        // costs about the same, so a simple even split is cheapest.
         #pragma omp parallel for schedule(static)
         for (int i = 0; i < myNodeCount; i = i + 1) {
             newLocalStates[i] = nextStateForNode(myNodes[i], step, graph, currentState, parameters);
@@ -300,7 +263,7 @@ int main(int argc, char** argv) {
         auto computeEnd = std::chrono::steady_clock::now();
         computeAccum = computeAccum + std::chrono::duration<double>(computeEnd - computeStart).count();
 
-        // ---- communication part ----
+        // communication 
         auto commStart = std::chrono::steady_clock::now();
         // swap border people's new states so neighbors on other processes are fresh
         exchangeBorderStates(currentState, sendToRank, recvFromRank, numberOfProcesses);
@@ -324,17 +287,8 @@ int main(int argc, char** argv) {
     MPI_Reduce(&computeAccum, &sumCompute, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
     MPI_Reduce(&commAccum, &maxComm, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
 
-    // ---- AGGREGATION: one reduction instead of 120 ------------------------------
-    // Each process only counted its own people, so nobody has the global picture.
-    // The obvious approach is to add everyone's counts together at the end of each
-    // day, but a reduction forces every process to stop and synchronise, and doing
-    // that 120 times was measurably slow.
-    //
-    // Instead each process kept its own daily counts privately, and here we flatten
-    // all 121 days into one long array and reduce it in a SINGLE call. Same answer,
-    // 119 fewer synchronisation points. MPI_SUM adds the arrays element by element,
-    // and only rank 0 receives the result, which is all we need since it writes the
-    // file.
+    // Aggregation: one reduction instead of 120
+
     int rows = static_cast<int>(localHistory.size());
     std::vector<int> localFlat(rows * 4);
     for (int i = 0; i < rows; i = i + 1) {
@@ -355,7 +309,7 @@ int main(int argc, char** argv) {
         }
     }
 
-    // how many threads openmp actually used, for the report
+    
     int threadsPerProcess = 1;
     #pragma omp parallel
     {

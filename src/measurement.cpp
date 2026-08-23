@@ -19,7 +19,7 @@ std::string machineName() {
 }
 
 void appendTimingRow(const std::string& fileName, const RunMeasurement& measurement) {
-    // did the file already exist (and have content)? if not we add a header row.
+
     bool needHeader = true;
     std::error_code errorCode;
     if (std::filesystem::exists(fileName, errorCode) &&

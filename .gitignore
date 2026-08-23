@@ -3,3 +3,6 @@ results/*.csv
 results/*.png
 gmon.out
 *.o
+!results/degrees_scalefree_500000.csv
+!results/degrees_smallworld_500000.csv
+!results/interventionEffect.csv

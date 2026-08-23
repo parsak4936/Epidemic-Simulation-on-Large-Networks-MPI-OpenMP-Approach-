@@ -1,4 +1,4 @@
-// the task parallel driver.
+// the task parallel .
 // mainParallel splits ONE algorithm across processes. this one runs FOUR DIFFERENT
 // algorithms at the same time, which is what makes it task parallelism.
 //
@@ -139,7 +139,6 @@ int main(int argc, char** argv) {
     MPI_Barrier(MPI_COMM_WORLD);
     double timeOrigin = MPI_Wtime();
 
-    // ================= WORKER =================
     if (myRank != 0) {
         std::vector<char> stateBuffer(numberOfNodes);
         int jobsDoneHere = 0;
@@ -311,7 +310,7 @@ int main(int argc, char** argv) {
     };
 
     for (int step = 0; step < parameters.numberOfSteps; step = step + 1) {
-        // ---- apply what task C decided on an earlier day ----
+        // apply what task C decided on an earlier day 
         // This is the one piece of feedback in the system: the analysis of day t changes
         // the world from day t+1 onwards. Doing it here, before the spread, and never
         // inside the day it was computed from, is what keeps the pipeline from turning
@@ -324,7 +323,7 @@ int main(int argc, char** argv) {
         }
         pendingVaccinations.clear();
 
-        // ---- task A on the master (the pipeline spine) ----
+        //  task A on the master (the pipeline spine) 
         double aStart = MPI_Wtime() - timeOrigin;
         std::vector<HealthState> nextState = state;
         #pragma omp parallel for schedule(static)
@@ -335,7 +334,7 @@ int main(int argc, char** argv) {
         double aEnd = MPI_Wtime() - timeOrigin;
         timeline << 0 << "," << 'A' << "," << step << "," << aStart << "," << aEnd << "\n";
 
-        // ---- snapshot this day and queue the analysis jobs for it ----
+        // snapshot this day and queue the analysis jobs for it 
         std::vector<char> snapshot(numberOfNodes);
         for (int i = 0; i < numberOfNodes; i = i + 1) snapshot[i] = static_cast<char>(static_cast<int>(state[i]));
 
@@ -388,13 +387,12 @@ int main(int argc, char** argv) {
     timeline.close();
 
     std::cout << "task scheduler finished. " << jobsCreated << " analysis jobs ran on "
-              << (numberOfProcesses - 1) << " worker process(es).\n";
+              << (numberOfProcesses - 1) << " worker processes.\n";
     std::cout << "jobs completed: " << jobsCompleted
-              << " | jobs re-enqueued after a worker timed out: " << jobsReEnqueued << "\n";
+              << " , jobs re-enqueued after a worker timed out: " << jobsReEnqueued << "\n";
     std::cout << "people vaccinated by task C (applied the day after it decided): "
               << totalVaccinated << "\n";
-    std::cout << "wrote results/timeline.csv (each row is one task run, with start and end times)\n";
-    std::cout << "plot it with:  python scripts/plotTimeline.py\n";
+    std::cout << "wrote results/timeline.csv \n";
 
     MPI_Finalize();
     return 0;

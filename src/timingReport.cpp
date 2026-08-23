@@ -84,7 +84,7 @@ int main(int argc, char** argv) {
         }
     }
 
-    std::cout << "\n=== timing comparison (best of the runs in " << fileName << ") ===\n";
+    std::cout << "\n timing comparison (best of the runs in " << fileName << ") ===\n";
     for (const auto& group : groups) {
         int nodes = group.first;
         std::string type = group.second;
