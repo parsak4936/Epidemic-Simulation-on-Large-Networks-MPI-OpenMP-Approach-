@@ -378,6 +378,11 @@ int main(int argc, char** argv) {
         reEnqueueTimedOutJobs();
     }
 
+    // everything is finished now: all 120 days computed and every analysis job back.
+    // measured from the same origin the timeline uses, so the number and the picture
+    // describe the same span.
+    double totalSeconds = MPI_Wtime() - timeOrigin;
+
     // tell the workers to stop
     for (int worker = 1; worker < numberOfProcesses; worker = worker + 1) {
         int header[3] = {STOP, 0, 0};
@@ -392,8 +397,12 @@ int main(int argc, char** argv) {
               << " , jobs re-enqueued after a worker timed out: " << jobsReEnqueued << "\n";
     std::cout << "people vaccinated by task C (applied the day after it decided): "
               << totalVaccinated << "\n";
-    std::cout << "wrote results/timeline.csv \n";
-
+    std::cout << "simulation time: " << totalSeconds << " s"
+              << "  |  mode: four tasks concurrently"
+              << "  |  processes: " << numberOfProcesses
+              << " (1 master + " << (numberOfProcesses - 1) << " workers)"
+              << "  |  threads each: " << omp_get_max_threads() << "\n";
+ 
     MPI_Finalize();
     return 0;
 }

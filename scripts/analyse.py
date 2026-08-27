@@ -159,11 +159,11 @@ def confirm(args):
 
     print(f'\n  permutation test over {trials:,} shuffles: p = {p:.4f}')
     if p < 0.01:
-        print(f'  -> the gap is far larger than chance would produce. {na} is genuinely faster.')
+        print(f'   the gap is far larger than chance would produce. {na} is genuinely faster.')
     elif p < 0.05:
-        print(f'  -> the gap is larger than chance would usually produce. {na} is faster.')
+        print(f'   the gap is larger than chance would usually produce. {na} is faster.')
     else:
-        print(f'  -> a gap this size could still come from chance at this number of repeats.')
+        print(f'   a gap this size could still come from chance at this number of repeats.')
         print(f'     Report {na} as at least matching {nb}, not as beating it.')
     print()
 

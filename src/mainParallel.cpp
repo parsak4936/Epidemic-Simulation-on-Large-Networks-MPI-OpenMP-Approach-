@@ -92,7 +92,6 @@ static void exchangeBorderStates(std::vector<HealthState>& state,
         }
     }
 
-   
     for (int other = 0; other < numberOfProcesses; other = other + 1) {
         if (!sendToRank[other].empty()) {
             sendBuffer[other].resize(sendToRank[other].size());

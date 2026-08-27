@@ -19,6 +19,8 @@
 #include <string>
 #include <fstream>
 #include <filesystem>
+#include <chrono>       // for timing the run
+#include <thread>       // for hardware_concurrency
 
 int main(int argc, char** argv) {
     int numberOfNodes = 20000;
@@ -59,6 +61,10 @@ int main(int argc, char** argv) {
     log << "step,susceptible,exposed,infectious,recovered,newlyInfected,contactsTraced,clusters,largestCluster,vaccinatedThisStep\n";
 
     int totalVaccinated = 0;
+
+    // time the simulation only, not the one time graph build, so this number can be
+    // compared directly with the other programs.
+    auto startTime = std::chrono::steady_clock::now();
 
     for (int step = 0; step < parameters.numberOfSteps; step = step + 1) {
         std::vector<HealthState> previousState = currentState;
@@ -103,6 +109,9 @@ int main(int argc, char** argv) {
             << vaccinatedThisStep << "\n";
     }
 
+    auto endTime = std::chrono::steady_clock::now();
+    double elapsedSeconds = std::chrono::duration<double>(endTime - startTime).count();
+
     int finalInfectedEver = 0;
     for (int node = 0; node < numberOfNodes; node = node + 1) {
         if (currentState[node] == HealthState::recovered) finalInfectedEver = finalInfectedEver + 1;
@@ -113,6 +122,9 @@ int main(int argc, char** argv) {
     std::cout << "ran all four tasks for " << parameters.numberOfSteps << " days\n";
     std::cout << "total vaccinated by task C: " << totalVaccinated << "\n";
     std::cout << "recovered or vaccinated at the end: " << finalInfectedEver << "\n";
-    std::cout << "wrote results/responseLog.csv\n";
+    std::cout << "simulation time: " << elapsedSeconds << " s"
+              << "  |  mode: all four tasks in turn, one process"
+              << "  |  cores on machine: " << std::thread::hardware_concurrency() << "\n";
+
     return 0;
 }
